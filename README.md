@@ -1,1 +1,1 @@
-# Backend learningjourney
+# Next JS learning journey
