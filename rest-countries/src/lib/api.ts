@@ -1,6 +1,6 @@
 // to fetch all countries
 
-export const getAllCountries = async () => {
+export async function getAllCountries() {
   try {
     const response = await fetch("https://restcountries.com/v3.1/all");
     if (!response.ok) {
@@ -11,11 +11,11 @@ export const getAllCountries = async () => {
   } catch (error) {
     console.log(error);
   }
-};
+}
 
 // to fetch single country by name
 
-export const getCountry = async (name: string) => {
+export async function getCountry(name: string) {
   try {
     const response = await fetch(`https://restcountries.com/v3.1/name/${name}`);
     if (!response.ok) {
@@ -28,4 +28,4 @@ export const getCountry = async (name: string) => {
   } catch (error) {
     console.log(error);
   }
-};
+}
