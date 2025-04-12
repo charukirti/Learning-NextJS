@@ -1,15 +1,31 @@
 // to fetch all countries
 
-export async function getAllCountries() {
+import { ApiProps } from "./types";
+
+export async function getAllCountries(
+  { name, region }: ApiProps = { name: "", region: "" }
+) {
   try {
-    const response = await fetch("https://restcountries.com/v3.1/all");
-    if (!response.ok) {
-      throw new Error("There was an error, while fetching countries.");
+    let url = "https://restcountries.com/v3.1/all";
+
+    if (name) {
+      url = `https://restcountries.com/v3.1/name/${name}`;
+    } else if (region) {
+      url = `https://restcountries.com/v3.1/region/${region}`;
     }
 
-    return response.json();
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(
+        `API request failed with status ${response.status}: ${response.statusText}`
+      );
+    }
+
+    return await response.json();
   } catch (error) {
-    console.log(error);
+    console.error("Error fetching countries:", error);
+    throw error;
   }
 }
 
@@ -18,6 +34,7 @@ export async function getAllCountries() {
 export async function getCountry(name: string) {
   try {
     const response = await fetch(`https://restcountries.com/v3.1/name/${name}`);
+
     if (!response.ok) {
       throw new Error("There was an error, while fetching countries.");
     }
@@ -27,5 +44,6 @@ export async function getCountry(name: string) {
     return data[0];
   } catch (error) {
     console.log(error);
+    throw error;
   }
 }

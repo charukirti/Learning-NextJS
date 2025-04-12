@@ -1,8 +1,28 @@
+import CountryInfo from "@/components/CountryInfo";
 import { getCountry } from "@/lib/api";
+import { CountryInfoProps } from "@/lib/types";
+import { ArrowLeftIcon } from "@heroicons/react/24/solid";
+import Link from "next/link";
 
-export default async function Country() {
-  const data = await getCountry('india')
+export default async function Country({
+  params,
+}: {
+  params: { country: string };
+}) {
+  const { country } = await params;
+  const data: CountryInfoProps = await getCountry(country);
 
-  console.log(data)
-  return <h1>Country Page</h1>;
+
+  return (
+    <section className="p-5">
+      <Link
+        href="/"
+        className="inline-flex items-center gap-2 bg-[var(--dark-blue)] px-8 py-2 rounded shadow-md text-[var(--white)]"
+      >
+        <ArrowLeftIcon className="h-4 w-4" />
+        Back
+      </Link>
+      <CountryInfo countryInfo={data} />
+    </section>
+  );
 }
