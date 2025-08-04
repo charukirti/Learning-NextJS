@@ -1,1 +1,0 @@
-# Next JS learning journey
